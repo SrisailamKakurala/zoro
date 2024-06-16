@@ -1,0 +1,7 @@
+# pyautogui
+# pywhatkit
+# pyttsx3
+# pyaudio
+# speechRecognition
+# wikipedia
+# opencv-python
