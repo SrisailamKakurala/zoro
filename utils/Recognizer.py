@@ -12,20 +12,21 @@ def recognize():
     with sr.Microphone() as source:
         recognizer.adjust_for_ambient_noise(source, duration=1) # to differ bg noise and user speech
         print("Listening...")
-        speak("How can i help you")
         query = recognizer.listen(source)
     
     
     # recognize the speech and convert to text
-    try:
-        text = recognizer.recognize_google(query)
-        print("User said: ", text)
-        return text.lower()
-    except sr.UnknownValueError:
-        print("sorry, Unable to understand command")
-        speak("sorry, Unable to understand command")
-        return False
-    except sr.RequestError as e:
-        print("Recognition request failed: ", e)
-        speak("Recognition request failed")
-        return False
+    if query:
+        try:
+            text = recognizer.recognize_google(query)
+            # print("User said: ", text)
+            return text.lower()
+        except sr.UnknownValueError:
+            print("sorry, Unable to understand command")
+            speak("sorry, Unable to understand command")
+            return False
+        except sr.RequestError as e:
+            print("Recognition request failed: ", e)
+            speak("Recognition request failed")
+            return False
+    
