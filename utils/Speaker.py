@@ -35,9 +35,11 @@ def speak(content):
     
 def speak_fast():
     jarvis.setProperty('rate', rate + 30)
+    speak("yes sir, i will speak fast")
     
 def speak_slow():
     jarvis.setProperty('rate', rate)
+    speak("yes sir, i will speak slow")
     
 def change_voice():
     global voice1, voice2, default_voice
