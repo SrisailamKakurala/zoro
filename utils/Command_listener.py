@@ -9,7 +9,8 @@ def listen_query(device_index):
     
     with sr.Microphone(device_index) as source:
         recognizer.adjust_for_ambient_noise(source)
-        print(f"Listening on device {device_index if device_index is not None else 'default microphone'}...")
+        print(f"Listening on device {device_index if device_index is not None else 'default microphone'}... waiting for wake word")
+        
         audio = recognizer.listen(source)
         try:
             query = recognizer.recognize_google(audio)

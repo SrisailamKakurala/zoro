@@ -2,8 +2,10 @@
 
 from utils import Check_internet, Speaker, Recognizer, Greet, Command_listener
 from assistants.Onine_assistant import online_assistant
-from features.Start_system_apps import open
+from features.Start_system_apps import open, close
 from utils.get_active_input_device import get_device_index
+from features.say_time import say_time
+
 
 
 def main():
@@ -22,10 +24,14 @@ def main():
                         Speaker.speak(f"opening {app}")
                     elif 'voice' in query:
                         Speaker.change_voice()
+                    elif 'close' in query:
+                        close(query)
                     elif 'speak fast' in query:
                         Speaker.speak_fast()
                     elif 'speak slow' in query:
                         Speaker.speak_slow()
+                    elif 'time' in query:
+                        say_time()
                     else:
                         main()
         
