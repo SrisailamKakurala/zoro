@@ -5,8 +5,8 @@ from assistants.Onine_assistant import online_assistant
 from features.Start_system_apps import open, close
 from utils.get_active_input_device import get_device_index
 from features.say_time import say_time
-
-
+from features.open_sites import *
+from assistants.api import code_generator, text_generator, image_response
 
 def main():
         # check for internet connection
@@ -19,7 +19,11 @@ def main():
                     Speaker.speak("Yes, how can I help you?")
                     query = Recognizer.recognize(device_index)
                     
-                    if ('open' in query) or ('start' in query):
+                    if 'youtube channel' in query:
+                        open_youtube_channel()
+                    elif 'channel analytics' in query:
+                        open_channel_analytics()
+                    elif ('open' in query) or ('start' in query):
                         app = open(query)
                         Speaker.speak(f"opening {app}")
                     elif 'voice' in query:
@@ -32,8 +36,11 @@ def main():
                         Speaker.speak_slow()
                     elif 'time' in query:
                         say_time()
+                    elif 'code' in query:
+                        res = code_generator.get_response(query)
                     else:
-                        main()
+                        res = text_generator.get_text_response(query)
+                        Speaker.speak(res)
         
             
                 
