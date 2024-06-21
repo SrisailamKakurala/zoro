@@ -23,7 +23,8 @@ def get_text_response(query):
         response = model.generate_content(query)
 
         # Print the generated text
-        print(response.text)
+        res = response.text.replace('*', '')
+        print(res)
         return response.text
 
     except ValueError as ve:
