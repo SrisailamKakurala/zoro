@@ -1,5 +1,6 @@
 #### DRIVER FILE
 
+from threading import Thread
 from utils import Check_internet, Speaker, Recognizer, Greet, Command_listener
 from assistants.Onine_assistant import online_assistant
 from features.Start_system_apps import open, close
@@ -7,7 +8,7 @@ from utils.get_active_input_device import get_device_index
 from features.say_time import say_time
 from features.open_sites import *
 from assistants.api import code_generator, text_generator, image_response
-from threading import Thread
+from features.battey_status import battery_alert, battery_life
 
 def main():
         # check for internet connection
@@ -15,6 +16,7 @@ def main():
             # check if user is using a bluetooth device
             device_index = get_device_index()
             while True:
+                battery_alert()
                 speech = Command_listener.listen_query(device_index)
                 if ("jarvis" in speech) or ('hey' in speech):
                     Speaker.speak("Yes, how can I help you?")
@@ -41,6 +43,8 @@ def main():
                             say_time()
                         elif 'code' in query:
                             res = code_generator.get_response(query)
+                        elif 'battery life' in query:
+                            battery_life()
                         else:
                             res = text_generator.get_text_response(query)
                             Speaker.speak(res)
@@ -61,6 +65,7 @@ if __name__ == "__main__":
     Thread(target=Greet.greet()).start()
    
     Thread(target=main()).start()
+
     
     
     
