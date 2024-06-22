@@ -12,6 +12,7 @@ def open(query):
     controller.hotkey('win') # Press the 'win' key
     time.sleep(1)
     controller.typewrite(query) # Type the query
+    time.sleep(2)
     controller.press('enter') # Press 'enter' to execute the command
     return query
 

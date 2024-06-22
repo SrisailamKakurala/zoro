@@ -1,13 +1,22 @@
 from dotenv import load_dotenv
 import google.generativeai as genai
 import os
+import unicodedata
 
 # Load environment variables from .env file
 load_dotenv()
 
 
+# Function to normalize the text
+def normalize_text(text):
+    # Normalize the text to remove hidden characters
+    text = unicodedata.normalize('NFKD', text)
+    # Replace any remaining special characters with spaces
+    for char in ['*', '-', '_', '•', '#', '@']:
+        text = text.replace(char, ' ')
+    return text
+
 def get_text_response(query):
-    
     try:
         # Configure the API key
         api_key = os.getenv('API_KEY')
@@ -17,21 +26,19 @@ def get_text_response(query):
         genai.configure(api_key=api_key)
 
         # Create the generative model instance
-        model = genai.GenerativeModel('gemini-1.0-pro-latest')
+        model = genai.GenerativeModel('gemini-1.5-flash')
 
         # Generate content
         response = model.generate_content(query)
 
-        # Print the generated text
-        res = response.text.replace('*', '')
-        print(res)
-        return response.text
+        # Normalize the text
+        normalized_text = normalize_text(response.text)
+
+        print(normalized_text)
+        return normalized_text
 
     except ValueError as ve:
         print(f"ValueError: {ve}")
-
-    except genai.GenerativeAIError as gaie:
-        print(f"GenerativeAIError: {gaie}")
 
     except Exception as e:
         print(f"An unexpected error occurred: {e}")
