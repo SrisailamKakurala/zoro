@@ -1,6 +1,5 @@
 import speech_recognition as sr
 
-
 # Initialize the recognizer
 recognizer = sr.Recognizer()
 
@@ -9,7 +8,7 @@ def listen_query(device_index):
     
     with sr.Microphone(device_index) as source:
         recognizer.adjust_for_ambient_noise(source)
-        print(f"Listening on device {device_index if device_index is not None else 'default microphone'}... waiting for wake word")
+        print(f"Listening on device {device_index if device_index is not None else 'default microphone'}... waiting for wake word", flush=True)
         
         audio = recognizer.listen(source)
         if audio:
@@ -18,7 +17,7 @@ def listen_query(device_index):
                 print(f"User said: {query}")
                 return query.lower()
             except sr.UnknownValueError:
-                print("Could not understand the audio")
+                print("Could not understand the audio", flush=True)
                 return ""
             except sr.RequestError as e:
                 print(f"Could not request results; {e}")

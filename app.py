@@ -18,7 +18,7 @@ def main():
             while True:
                 battery_alert()
                 speech = Command_listener.listen_query(device_index)
-                if ("jarvis" in speech) or ('hey' in speech):
+                if ("rock" in speech) or ("rok" in speech) or ("rock" in speech) or ('hey' in speech):
                     Speaker.speak("Yes, how can I help you?")
                     query = Recognizer.recognize(device_index)
                                      
@@ -32,6 +32,7 @@ def main():
                             app = open(query)
                             Speaker.speak(f"opening {app}")
                         elif 'voice' in query:
+                            Speaker.speak("changing voice boss")
                             Speaker.change_voice()
                         elif 'close' in query:
                             close(query)
@@ -42,7 +43,9 @@ def main():
                         elif 'time' in query:
                             say_time()
                         elif 'code' in query:
+                            Speaker.speak("on it boss")
                             res = code_generator.get_response(query)
+                            print(res)
                         elif 'battery life' in query:
                             battery_life()
                         else:

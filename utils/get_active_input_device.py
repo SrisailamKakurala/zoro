@@ -16,10 +16,11 @@ def get_device_index():
         if is_input_device(info) and is_potential_bluetooth_device(info):
             try:
                 if p.is_format_supported(44100.0, input_device=i, input_channels=1, input_format=pyaudio.paInt16):
-                    print(f"Active Bluetooth input device found: {info['name']}")
+                    # print(f"Active Bluetooth input device found: {info['name']}")
                     return i
             except ValueError as e:
-                print(f"Device {info['name']} does not support 44100 Hz sample rate. Error: {e}")
+                pass
+                # print(f"Device {info['name']} does not support 44100 Hz sample rate. Error: {e}")
     
     # Default to the first available microphone if no Bluetooth input device is found
     for i in range(num_devices):
