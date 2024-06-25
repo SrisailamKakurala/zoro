@@ -1,6 +1,7 @@
 from dotenv import load_dotenv
 import google.generativeai as genai
 import os
+import unicodedata
 
 # Load environment variables from .env file
 load_dotenv()
@@ -22,8 +23,10 @@ def get_response(query):
         # Generate content
         response = model.generate_content(query)
 
+        
         # Print the generated text
         print(response.text)
+        
         return response.text
 
     except ValueError as ve:

@@ -12,7 +12,7 @@ def normalize_text(text):
     # Normalize the text to remove hidden characters
     text = unicodedata.normalize('NFKD', text)
     # Replace any remaining special characters with spaces
-    for char in ['*', '-', '_', '•', '#', '@']:
+    for char in ['*', '-', '_', '•', '#', '@', '`']:
         text = text.replace(char, ' ')
     return text
 

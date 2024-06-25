@@ -2,6 +2,7 @@
 
 import speech_recognition as sr
 from utils.Speaker import speak
+from threading import Thread
 
 # create an instance of speech_recognition
 recognizer = sr.Recognizer()
@@ -10,8 +11,8 @@ def recognize(device_index):
     # determines the amount of silence required at the end of a phrase to consider the phrase complete
     recognizer.pause_threshold = 1
     with sr.Microphone(device_index) as source:
-        recognizer.adjust_for_ambient_noise(source, duration=1) # to differ bg noise and user speech
-        print("Listening...")
+        recognizer.adjust_for_ambient_noise(source, duration=0.3) # to differ bg noise and user speech
+        Thread(target=print, args=("Listening...", )).start()
         query = recognizer.listen(source)
     
     
