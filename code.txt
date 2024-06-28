@@ -1,7 +1,57 @@
-# Create a 9x9 multiplication table
-mult_table <- matrix(1:81, ncol = 9)
-rownames(mult_table) <- 1:9
-colnames(mult_table) <- 1:9
+#include <iostream>
+#include <vector>
 
-# Print the multiplication table
-print(mult_table)
+using namespace std;
+
+// Merge two sorted vectors into one sorted vector
+vector<int> merge(vector<int> left, vector<int> right) {
+  vector<int> result;
+  int i = 0, j = 0;
+  while (i < left.size() && j < right.size()) {
+    if (left[i] < right[j]) {
+      result.push_back(left[i]);
+      i++;
+    } else {
+      result.push_back(right[j]);
+      j++;
+    }
+  }
+  while (i < left.size()) {
+    result.push_back(left[i]);
+    i++;
+  }
+  while (j < right.size()) {
+    result.push_back(right[j]);
+    j++;
+  }
+  return result;
+}
+
+// Divide a vector into two smaller vectors and sort them
+vector<int> merge_sort(vector<int> arr) {
+  if (arr.size() <= 1) {
+    return arr;
+  }
+  int mid = arr.size() / 2;
+  vector<int> left(arr.begin(), arr.begin() + mid);
+  vector<int> right(arr.begin() + mid, arr.end());
+  return merge(merge_sort(left), merge_sort(right));
+}
+
+// Print a vector
+void print_vector(vector<int> arr) {
+  for (int num : arr) {
+    cout << num << " ";
+  }
+  cout << endl;
+}
+
+int main() {
+  vector<int> arr = {5, 2, 8, 3, 1, 9, 4, 7, 6};
+  cout << "Unsorted array: ";
+  print_vector(arr);
+  vector<int> sorted_arr = merge_sort(arr);
+  cout << "Sorted array: ";
+  print_vector(sorted_arr);
+  return 0;
+}

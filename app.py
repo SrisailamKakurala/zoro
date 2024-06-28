@@ -53,9 +53,7 @@ def main():
                             res = text_generator.get_text_response(query)
                             Speaker.speak(res)
         
-            
-                
-                
+
         else:
             Speaker.speak("Please connect to the internet To USE me")
             # offline assistant code goes here
