@@ -7,8 +7,9 @@ from features.Start_system_apps import open, close
 from utils.get_active_input_device import get_device_index
 from features.say_time import say_time
 from features.open_custom_sites import *
-from assistants.api import code_generator, text_generator, image_response
+from assistants.api import code_generator, text_generator
 from features.battey_status import battery_alert, battery_life
+from features import random_jokes, news, youtube_search, music, google_search, search_images, todolist
 
 def main():
         # check for internet connection
@@ -49,6 +50,32 @@ def main():
                             print(res)
                         elif 'battery life' in query:
                             battery_life()
+                        elif 'joke' in query:
+                            speak(random_jokes.joke())
+                        elif 'news' in query:
+                            speak(news.get_news())
+                        elif 'youtube' in query:
+                            youtube_search.utube_search()
+                        elif 'google' in query:
+                            google_search.google_search()
+                        elif 'music' in query:
+                            music.play_music()
+                        elif 'images' in query:
+                            search_images.images()
+                        elif ('task' in query) and ('add' in query):
+                            speak("what is the task")
+                            task = Recognizer.recognize()
+                            ack = todolist.add_reminder(task)
+                            if ack:
+                                speak("task added to todo")
+                            else:
+                                speak("please try again boss")
+                        elif ('todo list' in query) or ('show' in query):
+                            ack = todolist.show_todo()
+                            if ack:
+                                speak("opening todo")
+                            else:
+                                speak("please try again boss")
                         else:
                             res = text_generator.get_text_response(query)
                             Speaker.speak(res)

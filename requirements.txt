@@ -2,7 +2,9 @@
 # pywhatkit
 # pyttsx3
 # pyaudio
-# speechRecognition
-# wikipedia
-# opencv-python
+# speechRecognition\
 # psutil
+# pandas
+# python-dotenv
+# google.generativeai
+# 
