@@ -3,55 +3,70 @@
 
 using namespace std;
 
-// Merge two sorted vectors into one sorted vector
-vector<int> merge(vector<int> left, vector<int> right) {
-  vector<int> result;
-  int i = 0, j = 0;
-  while (i < left.size() && j < right.size()) {
-    if (left[i] < right[j]) {
-      result.push_back(left[i]);
+void merge(vector<int>& arr, int left, int mid, int right) {
+  int n1 = mid - left + 1;
+  int n2 = right - mid;
+
+  // Create temp arrays
+  vector<int> L(n1), R(n2);
+
+  // Copy data to temp arrays
+  for (int i = 0; i < n1; i++)
+    L[i] = arr[left + i];
+  for (int j = 0; j < n2; j++)
+    R[j] = arr[mid + 1 + j];
+
+  // Merge the temp arrays back into arr[left...right]
+  int i = 0, j = 0, k = left;
+  while (i < n1 && j < n2) {
+    if (L[i] <= R[j]) {
+      arr[k] = L[i];
       i++;
     } else {
-      result.push_back(right[j]);
+      arr[k] = R[j];
       j++;
     }
+    k++;
   }
-  while (i < left.size()) {
-    result.push_back(left[i]);
+
+  // Copy the remaining elements of L, if any
+  while (i < n1) {
+    arr[k] = L[i];
     i++;
+    k++;
   }
-  while (j < right.size()) {
-    result.push_back(right[j]);
+
+  // Copy the remaining elements of R, if any
+  while (j < n2) {
+    arr[k] = R[j];
     j++;
+    k++;
   }
-  return result;
 }
 
-// Divide a vector into two smaller vectors and sort them
-vector<int> merge_sort(vector<int> arr) {
-  if (arr.size() <= 1) {
-    return arr;
-  }
-  int mid = arr.size() / 2;
-  vector<int> left(arr.begin(), arr.begin() + mid);
-  vector<int> right(arr.begin() + mid, arr.end());
-  return merge(merge_sort(left), merge_sort(right));
-}
+void mergeSort(vector<int>& arr, int left, int right) {
+  if (left < right) {
+    int mid = (left + right) / 2;
 
-// Print a vector
-void print_vector(vector<int> arr) {
-  for (int num : arr) {
-    cout << num << " ";
+    // Sort the first half
+    mergeSort(arr, left, mid);
+
+    // Sort the second half
+    mergeSort(arr, mid + 1, right);
+
+    // Merge the sorted halves
+    merge(arr, left, mid, right);
   }
-  cout << endl;
 }
 
 int main() {
-  vector<int> arr = {5, 2, 8, 3, 1, 9, 4, 7, 6};
-  cout << "Unsorted array: ";
-  print_vector(arr);
-  vector<int> sorted_arr = merge_sort(arr);
-  cout << "Sorted array: ";
-  print_vector(sorted_arr);
+  vector<int> arr = {12, 11, 13, 5, 6, 7};
+
+  mergeSort(arr, 0, arr.size() - 1);
+
+  for (int i = 0; i < arr.size(); i++) {
+    cout << arr[i] << " ";
+  }
+
   return 0;
 }

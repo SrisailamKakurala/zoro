@@ -20,4 +20,3 @@ def get_news():
     else:
         print('Failed to get latest news headlines ',response.status_code)
 
-get_news()

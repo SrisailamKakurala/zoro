@@ -19,7 +19,7 @@ def main():
             while True:
                 battery_alert()
                 speech = Command_listener.listen_query(device_index)
-                if ("rock" in speech) or ("rok" in speech) or ("rock" in speech) or ("iraq" in speech) or ('hey' in speech):
+                if ("rox" in speech) or ('xerox' in speech) or ("rok" in speech) or ("rocks" in speech) or ("iraqs" in speech) or ('hey' in speech):
                     Speaker.speak("Yes Boss!")
                     query = Recognizer.recognize(device_index)
                                      
@@ -64,7 +64,7 @@ def main():
                             search_images.images()
                         elif ('task' in query) and ('add' in query):
                             speak("what is the task")
-                            task = Recognizer.recognize()
+                            task = Recognizer.recognize(0)
                             ack = todolist.add_reminder(task)
                             if ack:
                                 speak("task added to todo")

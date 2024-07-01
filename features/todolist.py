@@ -30,7 +30,7 @@ def add_reminder(to_do):
         with open('my1.txt', 'w') as file:
             
             file.write(today_str + '\nTask ' +'1: ' +to_do)
-            
+            return True            
 
 
 
